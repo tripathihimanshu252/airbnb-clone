@@ -1,0 +1,25 @@
+<h2>Listings</h2>
+<div class="grid">
+  <% if (listings && listings.length) { %>
+    <% listings.forEach(function(listing) { %>
+      <% const imgUrl = (listing.images && listing.images.length && listing.images[0].url) ? listing.images[0].url : (listing.image && listing.image.url) ? listing.image.url : ('https://picsum.photos/seed/' + (listing._id || listing.title) + '/800/500') %>
+      <div class="card listing-card">
+        <a href="/listings/<%= listing._id %>" class="card-link">
+          <div class="media">
+            <img src="<%= imgUrl %>" alt="<%= listing.title %>" />
+          </div>
+          <div class="card-body">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <h3 class="title"><%= listing.title || 'Untitled' %></h3>
+              <div class="rating"><%= listing.rating ? listing.rating.toFixed(1) : '—' %></div>
+            </div>
+            <div class="muted"><%= listing.location || '' %> <%= listing.country ? '• ' + listing.country : '' %></div>
+            <div class="price">$<%= listing.price %></div>
+          </div>
+        </a>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p>No listings found.</p>
+  <% } %>
+</div>
